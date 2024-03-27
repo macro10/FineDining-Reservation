@@ -40,8 +40,8 @@ driver = webdriver.Chrome()
 wait = WebDriverWait(driver, 30)
 
 # Other necessary fields
-username = "mtrotte1"
-pswd = "Sydney6400"
+username = "XXXXXX"
+pswd = "XXXXXX"
 date = datetime.datetime.now()
 
 
