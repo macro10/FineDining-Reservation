@@ -13,6 +13,7 @@ driver = webdriver.Chrome()
 # Create wait object
 wait = WebDriverWait(driver, 30)
 
+
 def elementWait(locator, path):
     element = wait.until(EC.element_to_be_clickable((locator, path)))
     return element
@@ -128,8 +129,3 @@ def getRes(restaurant, pSize, hr, min, username, pswd, phone, complete):
         time.sleep(180)
 
     driver.close()
-
-getRes(0, 2, "6", "30", "XXXXXXX", "XXXXXXX", "XXXXXXXXXX", False)
-# getRes(restaurant(int), pSize(int), hr(str), min(str), username(str), pswd(str), phone(str), complete(bool))
-
-# Prime is 0, Alo is 1, Kazoku is 2
