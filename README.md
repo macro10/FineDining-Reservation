@@ -1,8 +1,8 @@
 # FineDining-Reservation
-A relatively simple python program to automate getting reservations at any of High Point University's three fine dining locations. Restaurants such as Prime, Kazoku, and Alo open reservations one week in advance at midnight. It's not uncommon for reservations to fill up within only a minute or two. To circumvent this issue, I allow users to choose the time they want to make a reservation and the program will handle the rest. This is accomplished by creating a scheduled task to execute a function that gets the reservation.
+A python program to programatically get reservations at any of High Point University's fine dining locations. Restaurants such as Prime, Kazoku, and Alo open reservations one week in advance at midnight. It's not uncommon for reservations to fill up within only a minute or two. To circumvent this issue, I allow users to choose the time they want to make a reservation and the program will handle the rest. This is accomplished by creating a scheduled task to execute a selenium service that gets the reservation.
 
 How to use:
-Parameters such as restaurant, party size, time, date, and user credentials are input by the user. There is also a debugging flag, "complete" that will determine whether or not the final step of the reservation process is completed, (just for testing, but will soon be removed).
+Restaurant, party size, time, date, and user credentials are input by the user. With these inputs you simply click create reservation, and it will schedule the task to execute a python script according to the parameters.
 
 Features:
    * The Selenium Chrome Web Driver is used to target HTML elements on the web
