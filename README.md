@@ -1,14 +1,20 @@
 # FineDining-Reservation
-A python program to programatically get reservations at any of High Point University's fine dining locations. Restaurants such as Prime, Kazoku, and Alo open reservations one week in advance at midnight. It's not uncommon for reservations to fill up within only a minute or two. To circumvent this issue, I allow users to choose the time they want to make a reservation and the program will handle the rest. This is accomplished by creating a scheduled task to execute a selenium service when the reservation slot becomes open.
+A python software project to programatically get reservations at High Point University's fine dining locations.
+
+Purpose:
+Restaurants Prime, Kazoku, and Alo open reservations one week in advance at midnight. Reservations fill quickly. To solve this issue, I wanted to make an app that schedules tasks to make reservations at a specified time and date.
 
 How to use:
+The user inputs reservation information, and then clicks "Create Reservation."
+
+Inputs:
 Restaurant, party size, time, date, and user credentials are input by the user. With these inputs you simply click create reservation, and it will schedule the task to execute a python script according to the parameters.
 
 Features:
-   * The Selenium Chrome Web Driver is used to target HTML elements on the web
+   * The Selenium Chrome Web Driver is used to interact with HTML elements on the web
    * Explicit waits allow the program to wait for each element to be clickable by the driver, reducing errors in high traffic
-   * create_task() manipulates Windows COM objects to create tasks based on user time specifications.
-   * The average execution time is around 11 seconds, meaning reservations are unlikely to already be filled
+   * Software creates tasks on your OS (currently windows only), based on reservation specifications.
+   * Average execution time is 11 seconds, meaning reservations are unlikely to already be filled
    * Written in Python
 
 
