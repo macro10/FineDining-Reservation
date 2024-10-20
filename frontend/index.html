@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dining Reservation App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100 font-inter">
+    <div class="app-container overflow-hidden">
+        <div class="custom-bg-purple"></div>
+        <div class="relative px-4 pb-8">
+            <div class="refresh-button">
+                <img src="../assets/redo-icon.png" alt="Refresh" class="refresh-icon">
+            </div>
+            <h1 class="text-center text-2xl font-semibold mt-20 mb-8">Reserved</h1>
+            <div class="res-info p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="https://via.placeholder.com/40" alt="Restaurant Logo" class="w-10 h-10 rounded-full mr-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Current Restaurant</p>
+                        <p class="font-semibold">Kazoku (6)</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-gray-500">Date/Time</p>
+                    <p class="font-semibold">Friday, 7:30 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
