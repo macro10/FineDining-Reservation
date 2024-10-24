@@ -18,6 +18,16 @@ body {
     background-color: rgba(250, 249, 245, 1);
 }
 
+.info-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.info-card > div {
+    max-width: 90%;
+    max-height: 90%;
+}
+
 .custom-bg-purple {
     background-color: rgba(126, 96, 191, 1);
     height: 150px;
@@ -50,4 +60,21 @@ body {
     width: 46%;
     height: 46%;
     object-fit: contain;
+}
+
+#reserveButton {
+    background-color: rgba(126, 96, 191, 1);
+}
+
+#reserveButton:hover {
+    background-color: rgba(106, 76, 171, 1);
+}
+
+#showConfigButton {
+    z-index: 10;
+    transition: transform 0.2s ease-in-out;
+}
+
+#showConfigButton:hover {
+    transform: rotate(45deg);
 }
