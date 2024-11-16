@@ -1,38 +1,48 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const refreshButton = document.getElementById('refreshButton');
-    const reservationCard = document.getElementById('ReservationCard');
+    // Buttons
+    const updateReservationButton = document.getElementById('refreshButton');
     const closeReservationButton = document.getElementById('closeReservation');
-    const configCard = document.getElementById('ConfigCard');
+    const submitReservationButton = document.getElementById('reserveButton');
+    const closeConfigButton = document.getElementById('closeConfig');
+    const updateConfigButton = document.getElementById('showConfigButton');
     const submitConfigButton = document.getElementById('submitConfig');
-    const cancelConfigButton = document.getElementById('closeConfig');
-    const showConfigButton = document.getElementById('showConfigButton');
 
-    // make reservation button shows reservation card
-    refreshButton.addEventListener('click', function() {
-        reservationCard.classList.toggle('hidden');
-    });
+    // Cards
+    const reservationCard = document.getElementById('ReservationCard');
+    const configCard = document.getElementById('ConfigCard');
 
-    // close reservation card
-    closeReservationButton.addEventListener('click', function() {
-        reservationCard.classList.add('hidden');
-    });
-
-    // hide the config card
-    function hideConfigCard() {
-        configCard.classList.add('hidden');
+    
+    // generic card visibility functions
+    function showCard(card) {
+        card.classList.remove('hidden');
+    }
+    function hideCard(card) {
+        card.classList.add('hidden');
     }
 
-    // show the config card
-    function showConfigCard() {
-        configCard.classList.remove('hidden');
-    }
 
+    // update reservation button, (refresh symbol), shows reservation card
+    updateReservationButton.addEventListener('click', () => showCard(reservationCard));
+
+    // close reservation button hides reservation card
+    closeReservationButton.addEventListener('click', () => hideCard(reservationCard));
+
+    submitReservationButton.addEventListener('click', function() {
+        //MAKE RESERVATION LOGIC
+        hideCard(reservationCard);
+    });
+
+    // update config button, (gear icon), shows config card
+    updateConfigButton.addEventListener('click', () => showCard(configCard));
+
+    // close config button hides config card
+    closeConfigButton.addEventListener('click', () => hideCard(configCard));
+    
+    // submit button for submitting config information to storage
     submitConfigButton.addEventListener('click', function() {
-        // CONFIG SUBMISSION LOGIC
-        hideConfigCard()
+        // SUBMIT CONFIG LOGIC
+        hideCard(configCard);
     });
 
-    // Event listeners for close and cancel buttons
-    cancelConfigButton.addEventListener('click', hideConfigCard);
-    showConfigButton.addEventListener('click', showConfigCard);
+    
 });
