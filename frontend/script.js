@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.classList.add('hidden');
     }
 
-
+    
     // update reservation button, (refresh symbol), shows reservation card
     updateReservationButton.addEventListener('click', () => showCard(reservationCard));
 
@@ -44,5 +44,36 @@ document.addEventListener('DOMContentLoaded', function() {
         hideCard(configCard);
     });
 
+    // get the config
+    async function getConfig() {
+        const config = await store.get('userConfig');
+        if (config) {
+            document.getElementById('username').value = config.username;
+            document.getElementById('password').value = config.password;
+            document.getElementById('phoneNumber').value = config.phoneNumber;
+        }
+        return config;
+    }
+
+    async function saveConfig() {
+        const config = {
+            username: document.getElementById('username').value.trim(),
+            password: document.getElementById('password').value.trim(),
+            phoneNumber: document.getElementById('phoneNumber').value.trim()
+        };
+        
+        try {
+            // Basic validation to ensure fields aren't empty
+            if (!config.username || !config.password || !config.phoneNumber) {
+                throw new Error('All fields are required');
+            }
+            
+            await store.set('userConfig', config);
+            return config;
+        } catch (error) {
+            alert('Please fill in all fields');
+            return null;
+        }
+    }
     
 });
