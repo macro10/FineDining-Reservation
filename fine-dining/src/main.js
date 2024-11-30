@@ -7,16 +7,35 @@ let timeInputEl;
 let partySizeInputEl;
 let outputMsgEl;
 
+// generic card visibility functions
+function showCard(card) {
+  card.classList.remove('hidden');
+}
+function hideCard(card) {
+  card.classList.add('hidden');
+}
 
 async function reserve() {
+    // Validate form before proceeding
+    if (!restaurantSelectEl.value || !dateInputEl.value || !timeInputEl.value || !partySizeInputEl.value) {
+        console.error("Please fill in all required fields");
+        return;
+    }
+
     const reservation = {
         restaurant: restaurantSelectEl.value,
         date: dateInputEl.value,
         time: timeInputEl.value,
-        partySize: partySizeInputEl.value
+        partySize: parseInt(partySizeInputEl.value)
     };
 
-    outputMsgEl.textContent = await invoke("reserve", { reservation });
+    try {
+        const response = await invoke("reserve", { reservation });
+        console.log("Reservation response:", response);
+        hideCard(document.getElementById('ReservationCard'));
+    } catch (error) {
+        console.error("Reservation failed:", error);
+    }
 }
 
 
@@ -39,18 +58,16 @@ window.addEventListener('DOMContentLoaded', () => {
     timeInputEl = document.querySelector('#time');
     partySizeInputEl = document.querySelector('#partySize');
     
-    document.querySelector('#reservationForm').addEventListener("submit", (e) => {
-        e.preventDefault();
-        reserve(); // When input is submitted it calls the reserve function
+    // Remove the click event listener from submitReservationButton since we're using form submission
+    submitReservationButton.removeEventListener('click', function() {
+        hideCard(reservationCard);
     });
-    // generic card visibility functions
-    function showCard(card) {
-        card.classList.remove('hidden');
-    }
-    function hideCard(card) {
-        card.classList.add('hidden');
-    }
 
+    // Update the form submission handler
+    document.querySelector('#reservationForm').addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await reserve();
+    });
     
     // update reservation button, (refresh symbol), shows reservation card
     updateReservationButton.addEventListener('click', () => showCard(reservationCard));
@@ -58,18 +75,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // close reservation button hides reservation card
     closeReservationButton.addEventListener('click', () => hideCard(reservationCard));
 
-    submitReservationButton.addEventListener('click', function() {
-        //MAKE RESERVATION LOGIC
-        hideCard(reservationCard);
-    });
-
-    // update config button, (gear icon), shows config card
     updateConfigButton.addEventListener('click', () => showCard(configCard));
-
-    // close config button hides config card
     closeConfigButton.addEventListener('click', () => hideCard(configCard));
-    
-    // submit button for submitting config information to storage
     submitConfigButton.addEventListener('click', function() {
         
         hideCard(configCard);
