@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    width: 400px;
+    height: 450px;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(250, 249, 245, 1);
+}
+
+.info-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.info-card > div {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.custom-bg-purple {
+    background-color: rgba(126, 96, 191, 1);
+    height: 150px;
+}
+
+.res-info {
+    background-color: rgba(250, 249, 245, 1);
+    box-shadow: 0 5px 10px rgba(126, 96, 191, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 40px;
+    border: 1px solid rgba(126, 96, 191, 0.1);
+}
+
+.refresh-button {
+    position: absolute;
+    left: 50%;
+    top: -81px;
+    transform: translate(-50%, -50%);
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(126, 96, 191, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(126, 96, 191, 0.1);
+}
+
+.refresh-icon {
+    width: 46%;
+    height: 46%;
+    object-fit: contain;
+}
+
+#reserveButton {
+    background-color: rgba(126, 96, 191, 1);
+}
+
+#reserveButton:hover {
+    background-color: rgba(106, 76, 171, 1);
+}
+
+#showConfigButton {
+    z-index: 10;
+    transition: transform 0.2s ease-in-out;
+}
+
+#showConfigButton:hover {
+    transform: rotate(45deg);
+}
