@@ -1,44 +1,105 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dining Reservation App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <script type="module" src="/main.js" defer></script>
-  </head>
-
-  <body>
-    <main class="container">
-      <h1>Welcome to Tauri</h1>
-
-      <div class="row">
-        <a href="https://tauri.app" target="_blank">
-          <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo" />
-        </a>
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-          target="_blank"
-        >
-          <img
-            src="/assets/javascript.svg"
-            class="logo vanilla"
-            alt="JavaScript logo"
-          />
-        </a>
-      </div>
-      <p>Click on the Tauri logo to learn more about the framework</p>
-
-      <form class="row" id="greet-form">
-        <div class="input-stack">
-          <input id="greet-input" placeholder="Enter a name..." />
-          <input id="restaurant-input" placeholder="Enter a restaurant..." />
-          <input id="party-size-input" placeholder="Enter party size..." />
-          <button type="submit">Submit</button>
+</head>
+<body class="bg-gray-100 font-inter">
+    <div class="app-container overflow-hidden relative">
+        <div id="purpBackground" class="custom-bg-purple"></div>
+        <button id="showConfigButton" class="absolute top-4 right-4 text-white hover:text-gray-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+        </button>
+        <div class="relative px-4 pb-8">
+            <div class="refresh-button" id="refreshButton">
+                <img src="../frontend/assets/redo-icon.png" alt="Refresh" class="refresh-icon">
+            </div>
+            <h1 class="text-center text-2xl font-semibold mt-20 mb-8">Reserved</h1>
+            <div class="res-info p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="https://via.placeholder.com/40" alt="Restaurant Logo" class="w-10 h-10 rounded-full mr-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Current Restaurant</p>
+                        <p class="font-semibold">Kazoku (6)</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-gray-500">Date/Time</p>
+                    <p class="font-semibold">Friday, 7:30 PM</p>
+                </div>
+            </div>
         </div>
-        
-      </form>
-      <p id="greet-msg"></p>
-    </main>
-  </body>
+        <div id="ReservationCard" class="info-card hidden absolute inset-0 flex items-center justify-center">
+            <div class="relative p-4 bg-white rounded-lg shadow-md w-[90%] h-[90%] overflow-y-auto">
+                <button id="closeReservation" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <h2 class="text-xl font-semibold mb-4">Make a Reservation</h2>
+                <form id="reservationForm">
+                    <div class="mb-4">
+                        <label for="restaurant" class="block text-sm font-medium text-gray-700">Restaurant</label>
+                        <select id="restaurant" name="restaurant" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="">Select a restaurant</option>
+                            <option value="1924Prime">1924 Prime</option>
+                            <option value="Kazoku">Kazoku</option>
+                            <option value="Alo">Alo</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                        <input type="date" id="date" name="date" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div class="mb-4">
+                        <label for="time" class="block text-sm font-medium text-gray-700">Time</label>
+                        <input type="time" id="time" name="time" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div class="mb-4">
+                        <label for="partySize" class="block text-sm font-medium text-gray-700">Party Size</label>
+                        <input type="number" id="partySize" name="partySize" min="1" max="20" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <button id="reserveButton" type="submit" class="w-full text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        Reserve
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div id="ConfigCard" class="info-card hidden absolute inset-0 flex items-center justify-center">
+            <div class="relative p-4 bg-white rounded-lg shadow-md w-[90%] h-[90%] overflow-y-auto">
+                <button id="closeConfig" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <h2 class="text-xl font-semibold mb-4">User Configuration</h2>
+                <form id="configForm">
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                        <input type="text" id="username" name="username" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" name="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <div class="mb-4">
+                        <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    </div>
+                    <button type="button" id="submitConfig" class="w-full bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

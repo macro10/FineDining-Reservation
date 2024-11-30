@@ -1,35 +1,79 @@
 const { invoke } = window.__TAURI__.core;
-const { listen } = window.__TAURI__.event;
 
-listen("event_name", (eventPayload) => {
-  console.log(eventPayload);
-});
 
-let greetInputEl;
-let greetMsgEl;
-let restaurantInputEl;
+let restaurantSelectEl;
+let dateInputEl;
+let timeInputEl;
 let partySizeInputEl;
+let outputMsgEl;
+
 
 async function reserve() {
-  // * invokes rust function "reserve", passing in an object containing the user's name input
-  // * await waits for the rust function to complete and returns the result
-  // * result is displayed on frontend by setting it as the text content of greetMsgEl
-  const reservation = {
-    name: greetInputEl.value,
-    restaurant: restaurantInputEl.value,
-    partySize: partySizeInputEl.value
-  };
+    const reservation = {
+        restaurant: restaurantSelectEl.value,
+        date: dateInputEl.value,
+        time: timeInputEl.value,
+        partySize: partySizeInputEl.value
+    };
 
-  greetMsgEl.textContent = await invoke("reserve", { reservation });
+    outputMsgEl.textContent = await invoke("reserve", { reservation });
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  restaurantInputEl = document.querySelector("#restaurant-input");
-  partySizeInputEl = document.querySelector("#party-size-input")
-  greetMsgEl = document.querySelector("#greet-msg");
-  document.querySelector("#greet-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    reserve(); // When input is submitted it calls the reserve function
-  });
+
+window.addEventListener('DOMContentLoaded', () => {
+    // Buttons
+    const updateReservationButton = document.getElementById('refreshButton');
+    const closeReservationButton = document.getElementById('closeReservation');
+    const submitReservationButton = document.getElementById('reserveButton');
+    const closeConfigButton = document.getElementById('closeConfig');
+    const updateConfigButton = document.getElementById('showConfigButton');
+    const submitConfigButton = document.getElementById('submitConfig');
+
+    // Cards
+    const reservationCard = document.getElementById('ReservationCard');
+    const configCard = document.getElementById('ConfigCard');
+
+    // Inputs & Selections
+    restaurantSelectEl = document.querySelector('#restaurant');
+    dateInputEl = document.querySelector('#date');
+    timeInputEl = document.querySelector('#time');
+    partySizeInputEl = document.querySelector('#partySize');
+    
+    document.querySelector('#reservationForm').addEventListener("submit", (e) => {
+        e.preventDefault();
+        reserve(); // When input is submitted it calls the reserve function
+    });
+    // generic card visibility functions
+    function showCard(card) {
+        card.classList.remove('hidden');
+    }
+    function hideCard(card) {
+        card.classList.add('hidden');
+    }
+
+    
+    // update reservation button, (refresh symbol), shows reservation card
+    updateReservationButton.addEventListener('click', () => showCard(reservationCard));
+
+    // close reservation button hides reservation card
+    closeReservationButton.addEventListener('click', () => hideCard(reservationCard));
+
+    submitReservationButton.addEventListener('click', function() {
+        //MAKE RESERVATION LOGIC
+        hideCard(reservationCard);
+    });
+
+    // update config button, (gear icon), shows config card
+    updateConfigButton.addEventListener('click', () => showCard(configCard));
+
+    // close config button hides config card
+    closeConfigButton.addEventListener('click', () => hideCard(configCard));
+    
+    // submit button for submitting config information to storage
+    submitConfigButton.addEventListener('click', function() {
+        
+        hideCard(configCard);
+    });
+
+
 });
